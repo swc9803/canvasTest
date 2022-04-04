@@ -9,8 +9,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 body {
-  outline: none;
-  /* overflow: hidden; */
+  overflow-x: hidden;
   padding: 0;
   margin: 0;
 }

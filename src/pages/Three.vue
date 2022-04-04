@@ -1,25 +1,15 @@
 <template>
-  <div class="container"></div>
-  <section class="section-one">
-  </section>
-
-  <section class="section-two">
-  </section>
-
-  <section class="section-three">
-  </section>
-
-  <section class="section-four">
-  </section>
-
-  <section class="section-five">
-  </section>
+  <div class="scrollEl" ref="scrollEl" />
+  <div class="container" ref="cont" />
+  <section class="section1" />
+  <section class="section2" />
+  <section class="section3" />
+  <section class="section4" />
+  <section class="section5" />
 </template>
 
 <script>
-
-// import test from '@/components/three'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -27,49 +17,39 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default {
   setup () {
-    // test()
+    const cont = ref()
+    const scrollEl = ref()
+
     onMounted(() => {
-      function addModelToBG () {
-        let container
-        let camera
-        let renderer
-        let scene
+      function boxAni () {
+        const fov = 35
+        const aspect = cont.value.clientWidth / cont.value.clientHeight
+        const near = 0.9
+        const far = 1000
+        const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+
+        const renderer = new THREE.WebGLRenderer({
+          antialias: true,
+          alpha: true
+        })
+        const scene = new THREE.Scene()
 
         function init () {
-          container = document.querySelector('.container')
-
-          // Create scene
-          scene = new THREE.Scene()
-
-          const fov = 35
-          const aspect = container.clientWidth / container.clientHeight
-          const near = 0.9
-          const far = 1000
-
-          // Camera setup
-          camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-
-          // Renderer
-          renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true
-          })
-
-          renderer.setSize(container.clientWidth, container.clientHeight)
+          renderer.setSize(cont.value.clientWidth, cont.value.clientHeight)
           renderer.setPixelRatio(window.devicePixelRatio)
 
-          container.appendChild(renderer.domElement)
+          cont.value.appendChild(renderer.domElement)
 
           // eslint-disable-next-line no-unused-vars
           function render () {
             renderer.render(scene, camera)
           }
 
-          var geometry = new THREE.BoxGeometry()
+          const geometry = new THREE.TorusGeometry(0.4, 0.2, 100, 100)
           var material = new THREE.MeshNormalMaterial()
           var box = new THREE.Mesh(geometry, material)
-          box.scale.set(1.0, 1.0, 1.0)
-          box.position.set(0.0, 0.0, 0.0)
+          // box.scale.set(1.0, 1.0, 1.0)
+          // box.position.set(0.0, 0.0, 0.0)
           scene.add(box)
           animate()
         }
@@ -78,94 +58,82 @@ export default {
           requestAnimationFrame(animate)
           renderer.render(scene, camera)
         }
-
         init()
 
         function onWindowResize () {
-          camera.aspect = container.clientWidth / container.clientHeight
+          camera.aspect = cont.value.clientWidth / cont.value.clientHeight
           camera.updateProjectionMatrix()
-          renderer.setSize(container.clientWidth, container.clientHeight)
+          renderer.setSize(cont.value.clientWidth, cont.value.clientHeight)
         }
-
         window.addEventListener('resize', onWindowResize)
 
-        gsap.registerPlugin(ScrollTrigger)
-
         scene.rotation.set(0, 1.88, 0)
-        camera.position.set(2, 0, 5)
+        camera.position.set(1, 0, 5)
 
-        ScrollTrigger.defaults({
-          immediateRender: false,
-          ease: 'power1.inOut'
-        })
-
+        // ScrollTrigger.defaults({
+        //   immediateRender: false
+        // })
         const carAni = gsap.timeline({
-
           scrollTrigger: {
-            trigger: '.section-two',
+            trigger: scrollEl.value,
             start: 'top top',
-            endTrigger: '.section-five',
-            end: 'bottom bottom',
+            end: '80%',
             scrub: 1
           }
-
         })
-
         carAni
-          .to(scene.rotation, { y: 4.79 })
           .to(camera.position, { x: -0.1 })
-          .to(scene.rotation, { z: 1.6 })
-          .to(scene.rotation, { z: 0.02, y: 3.1 }, 'simultaneously')
-          .to(camera.position, { x: 0.16 }, 'simultaneously')
-          .to('.container', { opacity: 0, scale: 0 }, 'simultaneously')
+          .fromTo(cont.value, { opacity: 0 }, { opacity: 1 }, '<')
+          .to(scene.rotation, { y: 6.79 }, '<')
+          .to(scene.rotation, { x: 2.6 })
+          .to(scene.rotation, { z: 2.6 }, '<')
+          .to(scene.rotation, { z: 0.02, y: 3.1 })
+          // .to(camera.position, { x: 0.16 }, '<')
+          .to(cont.value, { opacity: 0, scale: 0 }, '<')
       }
-      addModelToBG()
+      boxAni()
     })
+    return {
+      scrollEl, cont
+    }
   }
 }
 </script>
 
-<style lang="scss">
-
-body {
-  width: 100vw;
-  height: 100%;
-  margin: 0;
-  overflow-y: scroll;
-  overflow-x: hidden;
+<style lang="scss" scoped>
+.scrollEl {
+  position: absolute;
+  width: 0;
+  height: 500vh;
+  opacity: 0;
 }
 
 .container {
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 999;
+  z-index: 9;
 }
 
 section {
   width: 100%;
   height: 100vh;
   position: relative;
-
 }
 
-.section-one {
+.section1 {
   background-color: tomato;
 }
-
-.section-two {
+.section2 {
   background-color: steelblue;
 }
-
-.section-three {
+.section3 {
   background-color: crimson;
 }
-
-.section-four {
+.section4 {
   background-color: lime;
 }
-
-.section-five {
+.section5 {
   background-color: grey;
 }
 </style>
