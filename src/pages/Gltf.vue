@@ -11,6 +11,7 @@
 <script>
 import { onMounted, ref } from 'vue'
 import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
@@ -44,35 +45,35 @@ export default {
           function render () {
             renderer.render(scene, camera)
           }
-          const x = -2.5; const y = -5
-          const shape = new THREE.Shape()
-          shape.moveTo(x + 2.5, y + 2.5)
-          shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y)
-          shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5)
-          shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5)
-          shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5)
-          shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y)
-          shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5)
 
-          // ExtrudeGeometry settings
-          const settings = {
-            steps: 5,
-            depth: 4,
-            bevelEnabled: true,
-            bevelThickness: 1.6,
-            bevelSize: 2,
-            bevelSegments: 6
-          }
-          const geometry = new THREE.ExtrudeGeometry(shape, settings)
-          const fillMaterial = new THREE.MeshNormalMaterial()
-          const cube = new THREE.Mesh(geometry, fillMaterial)
-          const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff })
-          const line = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), lineMaterial)
-          const group = new THREE.Group()
-          scene.add(cube)
-          group.add(line)
-          scene.add(group)
-          line.material.transparent = true
+          const gltfLoader = new GLTFLoader()
+          // const models = {}
+          // const toLoad = [
+          //   {
+          //     name: 'witch',
+          //     group: new THREE.Group(),
+          //     file: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/paint-brush/model.gltf'
+          //   },
+          //   {
+          //     name: 'bear',
+          //     group: new THREE.Group(),
+          //     file: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/bear/model.gltf'
+          //   }
+          // ]
+
+          // toLoad.forEach((item) => {
+          gltfLoader.load('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/bear/model.gltf', (model) => {
+            const root = model.scene
+            scene.add(root)
+            carAni
+              .set(camera.position, { z: 20 })
+            // .to(camera.position, { x: -0.1 })
+              .to(root.rotation, { x: 20.6 }, '<')
+              .to(scene.position, { z: 20.6 }, '<')
+            // .to(scene.rotation, { z: 2.6 }, '<')
+            // .to(cont.value, { opacity: 0, scale: 0 }, '<')
+          })
+          // })
           const carAni = gsap.timeline({
             scrollTrigger: {
               trigger: scrollEl.value,
@@ -81,20 +82,6 @@ export default {
               scrub: 1
             }
           })
-          carAni
-            .set(camera.position, { z: 20 })
-            .to(camera.position, { x: -0.1 })
-            .fromTo(cont.value, { opacity: 0 }, { opacity: 1 }, '<')
-            .to(line.scale, { x: 1.1, y: 1.1, z: 1.1 }, '<')
-            .to(line.material, { opacity: 0 }, '<')
-            // object.material 로 웬만한 설정 가능
-            .to(scene.rotation, { y: 6.79 }, '<')
-            .to(scene.rotation, { y: 6.79 }, '<')
-            .to(scene.rotation, { x: 2.6 })
-            .to(scene.rotation, { z: 2.6 }, '<')
-            .to(scene.rotation, { z: 0.02, y: 3.1 })
-          // .to(camera.position, { x: 0.16 }, '<')
-            .to(cont.value, { opacity: 0, scale: 0 }, '<')
           animate()
         }
 
@@ -148,19 +135,19 @@ section {
   position: relative;
 }
 
-.section1 {
-  background-color: tomato;
-}
-.section2 {
-  background-color: steelblue;
-}
-.section3 {
-  background-color: crimson;
-}
-.section4 {
-  background-color: lime;
-}
-.section5 {
-  background-color: grey;
-}
+// .section1 {
+//   background-color: tomato;
+// }
+// .section2 {
+//   background-color: steelblue;
+// }
+// .section3 {
+//   background-color: crimson;
+// }
+// .section4 {
+//   background-color: lime;
+// }
+// .section5 {
+//   background-color: grey;
+// }
 </style>

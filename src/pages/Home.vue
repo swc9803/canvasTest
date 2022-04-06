@@ -1,6 +1,7 @@
 <template>
   <div @mousemove="starAni" class="container" ref="container" />
   <p>d</p>
+  <div src="src\assets\models\hat.gltf"></div>
 </template>
 
 <script>
