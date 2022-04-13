@@ -5,7 +5,8 @@ import Three from '@/pages/Three.vue'
 import Line from '@/pages/Line.vue'
 import Gltf from '@/pages/Gltf.vue'
 import Gltfex from '@/pages/Gltfex.vue'
-import Pointer from '@/pages/Pointer.vue'
+import Sticky from '@/pages/Sticky.vue'
+import Mask from '@/pages/Mask.vue'
 
 const routes = [
   {
@@ -39,9 +40,14 @@ const routes = [
     component: Gltfex
   },
   {
-    path: '/pointer',
-    name: 'Pointer',
-    component: Pointer
+    path: '/sticky',
+    name: 'Sticky',
+    component: Sticky
+  },
+  {
+    path: '/mask',
+    name: 'Mask',
+    component: Mask
   }
 ]
 
