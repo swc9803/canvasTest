@@ -12,6 +12,7 @@
 import { onMounted, ref } from 'vue'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
@@ -28,6 +29,7 @@ export default {
         const near = 0.1
         const far = 2000
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+        camera.position.set(0, 0, 10)
 
         const renderer = new THREE.WebGLRenderer({
           antialias: true,
@@ -36,6 +38,12 @@ export default {
         const scene = new THREE.Scene()
 
         function init () {
+          // 빛
+          const color = 0xFFFFFF
+          const intensity = 1
+          const light = new THREE.DirectionalLight(color, intensity)
+          light.position.set(-1, 2, 4)
+          scene.add(light)
           renderer.setSize(cont.value.clientWidth, cont.value.clientHeight)
           renderer.setPixelRatio(window.devicePixelRatio)
 
@@ -47,6 +55,10 @@ export default {
           }
 
           const gltfLoader = new GLTFLoader()
+
+          const dracoLoader = new DRACOLoader()
+          dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/')
+          gltfLoader.setDRACOLoader(dracoLoader)
           // const models = {}
           // const toLoad = [
           //   {
@@ -62,11 +74,11 @@ export default {
           // ]
 
           // toLoad.forEach((item) => {
-          gltfLoader.load('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/bear/model.gltf', (model) => {
+          gltfLoader.load('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/ankou-with-cart/model.gltf', (model) => {
             const root = model.scene
+            root.position.set(0, 0.5, 0)
             scene.add(root)
             carAni
-              .set(camera.position, { z: 20 })
             // .to(camera.position, { x: -0.1 })
               .to(root.rotation, { x: 20.6 }, '<')
               .to(scene.position, { z: 20.6 }, '<')

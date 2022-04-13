@@ -5,6 +5,7 @@ import Three from '@/pages/Three.vue'
 import Line from '@/pages/Line.vue'
 import Gltf from '@/pages/Gltf.vue'
 import Gltfex from '@/pages/Gltfex.vue'
+import Pointer from '@/pages/Pointer.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/gltfex',
     name: 'Gltfex',
     component: Gltfex
+  },
+  {
+    path: '/pointer',
+    name: 'Pointer',
+    component: Pointer
   }
 ]
 
