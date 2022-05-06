@@ -5,6 +5,7 @@
   <div class="dd">
     <div class="box"></div>
   </div>
+  <button>ddddddddddd</button>
 </template>
 
 <script>
@@ -21,12 +22,12 @@ export default {
         scrollTrigger: {
           trigger: scr.value,
           start: 'top top',
-          end: '80%',
+          end: '40%',
           scrub: 1
         }
       })
       carAni.to('.box', {
-        clipPath: 'circle(75%)'
+        clipPath: 'circle(50%)'
       })
     })
     return {
@@ -52,5 +53,9 @@ export default {
   background-size: cover;
   background: url('~@/assets/pizza.png');
   clip-path: circle(5%);
+}
+button {
+  text-align: left;
+  margin: 50px;
 }
 </style>

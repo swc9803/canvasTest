@@ -74,7 +74,7 @@ export default {
           // ]
 
           // toLoad.forEach((item) => {
-          gltfLoader.load('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/ankou-with-cart/model.gltf', (model) => {
+          gltfLoader.load('airpods.gltf', (model) => {
             const root = model.scene
             root.position.set(0, 0.5, 0)
             scene.add(root)

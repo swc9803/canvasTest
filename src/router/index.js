@@ -7,6 +7,8 @@ import Gltf from '@/pages/Gltf.vue'
 import Gltfex from '@/pages/Gltfex.vue'
 import Sticky from '@/pages/Sticky.vue'
 import Mask from '@/pages/Mask.vue'
+import Arrow from '@/pages/Arrow.vue'
+import Gltfske from '@/pages/GltfWithSketchfab.vue'
 
 const routes = [
   {
@@ -48,6 +50,16 @@ const routes = [
     path: '/mask',
     name: 'Mask',
     component: Mask
+  },
+  {
+    path: '/arrow',
+    name: 'Arrow',
+    component: Arrow
+  },
+  {
+    path: '/gltfske',
+    name: 'Gltfske',
+    component: Gltfske
   }
 ]
 
