@@ -26,14 +26,14 @@ export default {
   width: 10px;
   height: 150vh;
   background: black;
-}
-.ss {
-  position: sticky;
-  width: 100px;
-  height: 100px;
-  top: 0;
-  left: 50%;
-  background: white;
+  .ss {
+    position: sticky;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    left: 50%;
+    background: rgb(99, 83, 83);
+  }
 }
 .box {
   width: 90%;
@@ -47,6 +47,6 @@ export default {
   background: blue;
 }
 .box3 {
-  background: green;
+  // background: green;
 }
 </style>

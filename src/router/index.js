@@ -4,11 +4,12 @@ import Drawing from '@/pages/Drawing.vue'
 import Three from '@/pages/Three.vue'
 import Line from '@/pages/Line.vue'
 import Gltf from '@/pages/Gltf.vue'
-import Gltfex from '@/pages/Gltfex.vue'
+import Gltfani from '@/pages/Gltfani.vue'
 import Sticky from '@/pages/Sticky.vue'
 import Mask from '@/pages/Mask.vue'
 import Arrow from '@/pages/Arrow.vue'
 import Gltfske from '@/pages/GltfWithSketchfab.vue'
+import Orbit from '@/pages/Orbit.vue'
 
 const routes = [
   {
@@ -37,9 +38,9 @@ const routes = [
     component: Gltf
   },
   {
-    path: '/gltfex',
-    name: 'Gltfex',
-    component: Gltfex
+    path: '/gltfani',
+    name: 'Gltfani',
+    component: Gltfani
   },
   {
     path: '/sticky',
@@ -60,6 +61,11 @@ const routes = [
     path: '/gltfske',
     name: 'Gltfske',
     component: Gltfske
+  },
+  {
+    path: '/orbit',
+    name: 'Orbit',
+    component: Orbit
   }
 ]
 
