@@ -69,7 +69,7 @@ export default {
           const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff })
           const line = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), lineMaterial)
           const group = new THREE.Group()
-          scene.add(cube)
+          group.add(cube)
           group.add(line)
           scene.add(group)
           line.material.transparent = true

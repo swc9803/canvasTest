@@ -1,0 +1,11 @@
+Model Information:
+* title:	Halo - Battle Rifle
+* source:	https://sketchfab.com/3d-models/halo-battle-rifle-0e083ec8b51f476080ad0d8827d96fca
+* author:	Glitch5970 (https://sketchfab.com/Glitch5970)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Halo - Battle Rifle" (https://sketchfab.com/3d-models/halo-battle-rifle-0e083ec8b51f476080ad0d8827d96fca) by Glitch5970 (https://sketchfab.com/Glitch5970) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

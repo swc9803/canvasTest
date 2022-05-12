@@ -25,7 +25,7 @@ export default {
         const near = 0.1
         const far = 2000
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-        camera.position.set(0, 0, 10)
+        camera.position.set(0, 0.5, 1.5)
 
         const renderer = new THREE.WebGLRenderer({
           antialias: true,
@@ -53,13 +53,27 @@ export default {
 
           const dracoLoader = new DRACOLoader()
           dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/')
+          const group = new THREE.Group()
           gltfLoader.setDRACOLoader(dracoLoader)
-          gltfLoader.load('ipad/scene.gltf', (model) => {
-            const phone = model.scene
-            phone.position.set(-0.1, -1.35, 7.5)
-            phone.rotation.set(0, 0.2, 0)
-            scene.add(phone)
+          gltfLoader.load('models/hel/hel.gltf', (model) => {
+            // const phone = model.scene
+            const phone = model.scene.children[0]
+            var edges = new THREE.EdgesGeometry(model.scene.children[0].geometry)
+            const line = new THREE.LineSegments(edges)
+            line.material.depthTest = false
+            line.material.opacity = 0.5
+            line.material.transparent = true
+            line.position.x = 0.5
+            line.position.z = -1
+            line.position.y = 0.2
+            phone.layers.set(0)
+            line.layers.set(1)
+            phone.position.set(0, 0, 0)
+            phone.rotation.set(0, 0, 0)
+            group.add(phone)
+            group.add(line)
             phone.format = THREE.RGBAFormat
+            scene.add(group)
           })
           animate()
         }

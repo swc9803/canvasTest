@@ -10,6 +10,7 @@ import Mask from '@/pages/Mask.vue'
 import Arrow from '@/pages/Arrow.vue'
 import Gltfske from '@/pages/GltfWithSketchfab.vue'
 import Orbit from '@/pages/Orbit.vue'
+import Toline from '@/pages/Toline.vue'
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: '/orbit',
     name: 'Orbit',
     component: Orbit
+  },
+  {
+    path: '/toline',
+    name: 'Toline',
+    component: Toline
   }
 ]
 
