@@ -82,7 +82,6 @@ export default {
             }
           })
           carAni
-            .set(camera.position, { z: 20 })
             .to(camera.position, { x: -0.1 })
             .fromTo(cont.value, { opacity: 0 }, { opacity: 1 }, '<')
             .to(line.scale, { x: 1.1, y: 1.1, z: 1.1 }, '<')

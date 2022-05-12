@@ -30,7 +30,7 @@ export default {
         const near = 0.1
         const far = 2000
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-        camera.position.set(0, 0, 10)
+        camera.position.set(0, 0, 150)
 
         const renderer = new THREE.WebGLRenderer({
           antialias: true,
@@ -38,18 +38,21 @@ export default {
         })
         const scene = new THREE.Scene()
 
+        var clock = new THREE.Clock()
+        var mixer
+
         function init () {
           // 빛
           const color = 0xFFFFFF
           const intensity = 1
-          const light = new THREE.DirectionalLight(color, intensity)
+          const light = new THREE.HemisphereLight(color, intensity)
 
-          const raycaster = new THREE.Raycaster()
-          const rayOrigin = new THREE.Vector3(-3, 0, 0)
-          const rayDirection = new THREE.Vector3(10, 0, 0)
-          rayDirection.normalize()
-          raycaster.set(rayOrigin, rayDirection)
-          scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300, 0x00ff00))
+          // const raycaster = new THREE.Raycaster()
+          // const rayOrigin = new THREE.Vector3(-3, 0, 0)
+          // const rayDirection = new THREE.Vector3(10, 0, 0)
+          // rayDirection.normalize()
+          // raycaster.set(rayOrigin, rayDirection)
+          // scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300, 0x00ff00))
 
           light.position.set(-1, 2, 4)
           scene.add(light)
@@ -64,18 +67,29 @@ export default {
           }
 
           const gltfLoader = new GLTFLoader()
-          gltfLoader.load('fox.glb', (model) => {
+          gltfLoader.load('fox/Fox.gltf', (model) => {
+            mixer = new THREE.AnimationMixer(model.scene)
+            var action = mixer.clipAction(model.animations[0])
+            action.play()
+
             const root = model.scene
-            root.position.set(0, -50, -90)
-            root.rotation.set(0, -2, 0)
             scene.add(root)
             loading.value = false
+            root.position.set(0, -50, 0)
+            root.rotation.set(0, Math.PI / -4, 0)
+            console.log(model.animations[1])
+            setTimeout(() => {
+              action = mixer.clipAction(model.animations[1])
+              action.play()
+            }, 1000)
           })
           animate()
         }
 
         function animate () {
           requestAnimationFrame(animate)
+          var delta = clock.getDelta()
+          if (mixer) mixer.update(delta)
           renderer.render(scene, camera)
         }
         init()
