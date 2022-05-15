@@ -19,15 +19,16 @@ export default {
   setup () {
     const cont = ref()
     const scrollEl = ref()
+    const color = 0xFFFFFF
+    const intensity = 1
 
     onMounted(() => {
       function boxAni () {
-        const fov = 75
+        const fov = 35
         const aspect = cont.value.clientWidth / cont.value.clientHeight
-        const near = 0.1
-        const far = 2000
+        const near = 0.9
+        const far = 1000
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-        camera.position.set(0, 0, 40)
 
         const renderer = new THREE.WebGLRenderer({
           antialias: true,
@@ -45,35 +46,29 @@ export default {
           function render () {
             renderer.render(scene, camera)
           }
-          const x = -2.5; const y = -5
-          const shape = new THREE.Shape()
-          shape.moveTo(x + 2.5, y + 2.5)
-          shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y)
-          shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5)
-          shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5)
-          shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5)
-          shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y)
-          shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5)
 
-          // ExtrudeGeometry settings
-          const settings = {
-            steps: 5,
-            depth: 4,
-            bevelEnabled: true,
-            bevelThickness: 1.6,
-            bevelSize: 2,
-            bevelSegments: 6
-          }
-          const geometry = new THREE.ExtrudeGeometry(shape, settings)
-          const fillMaterial = new THREE.MeshNormalMaterial()
-          const cube = new THREE.Mesh(geometry, fillMaterial)
-          const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff })
-          const line = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), lineMaterial)
-          const group = new THREE.Group()
-          group.add(cube)
-          group.add(line)
-          scene.add(group)
-          line.material.transparent = true
+          const light = new THREE.DirectionalLight(color, intensity)
+          light.position.set(-1, 2, 4)
+          scene.add(light)
+
+          const raycaster = new THREE.Raycaster()
+          const rayOrigin = new THREE.Vector3(-3, 0, 0)
+          const rayDirection = new THREE.Vector3(10, 0, 0)
+          rayDirection.normalize()
+          raycaster.set(rayOrigin, rayDirection)
+          scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300, 0x0000ff))
+
+          const geometry = new THREE.BoxGeometry(0.4, 0.2)
+          var material = new THREE.MeshPhongMaterial()
+          var box = new THREE.Mesh(geometry, material)
+          var box2 = new THREE.Mesh(geometry, material)
+          material.color = new THREE.Color(0xff0000)
+          // box.scale.set(1.0, 1.0, 1.0)
+          box.position.set(2.0, 0.0, 0.0)
+          box2.position.set(-2.0, 0.0, 0.0)
+          scene.add(box)
+          scene.add(box2)
+          animate()
           const carAni = gsap.timeline({
             scrollTrigger: {
               trigger: scrollEl.value,
@@ -83,18 +78,15 @@ export default {
             }
           })
           carAni
-            .fromTo(cont.value, { opacity: 0 }, { opacity: 1 }, '<')
-            .to(line.scale, { x: 1.1, y: 1.1, z: 1.1 }, '<')
-            .to(line.material, { opacity: 0 }, '<')
-            // object.material 로 웬만한 설정 가능
-            .to(scene.rotation, { y: 6.79 }, '<')
-            .to(scene.rotation, { y: 6.79 }, '<')
-            .to(scene.rotation, { x: 2.6 })
-            .to(scene.rotation, { z: 2.6 }, '<')
-            .to(scene.rotation, { z: 0.02, y: 3.1 })
+            .fromTo(cont.value, { opacity: 0.5 }, { opacity: 1 }, '<')
+            .to(box.rotation, { y: 6.79 }, '<')
+            .to(box.rotation, { x: 2.6 })
+            .to(box.rotation, { z: 2.6 }, '<')
+            .to(box.rotation, { z: 0.02, y: 3.1 })
           // .to(camera.position, { x: 0.16 }, '<')
             .to(cont.value, { opacity: 0, scale: 0 }, '<')
-          animate()
+          const intersect = raycaster.intersectObjects([box, box2])
+          console.log(intersect)
         }
 
         function animate () {
@@ -110,8 +102,8 @@ export default {
         }
         window.addEventListener('resize', onWindowResize)
 
-        // scene.rotation.set(0, 1.88, 0)
-        // camera.position.set(1, 0, 5)
+        scene.rotation.set(0, 1.88, 0)
+        camera.position.set(0, 0, 5)
 
         // ScrollTrigger.defaults({
         //   immediateRender: false
@@ -147,19 +139,19 @@ section {
   position: relative;
 }
 
-.section1 {
-  background-color: tomato;
-}
-.section2 {
-  background-color: steelblue;
-}
-.section3 {
-  background-color: crimson;
-}
-.section4 {
-  background-color: lime;
-}
-.section5 {
-  background-color: grey;
-}
+// .section1 {
+//   background-color: tomato;
+// }
+// .section2 {
+//   background-color: steelblue;
+// }
+// .section3 {
+//   background-color: crimson;
+// }
+// .section4 {
+//   background-color: lime;
+// }
+// .section5 {
+//   background-color: grey;
+// }
 </style>

@@ -11,7 +11,7 @@ import Arrow from '@/pages/Arrow.vue'
 import Gltfske from '@/pages/GltfWithSketchfab.vue'
 import Orbit from '@/pages/Orbit.vue'
 import Toline from '@/pages/Toline.vue'
-import Test from '@/pages/Test.vue'
+import Raycaster from '@/pages/Raycaster.vue'
 
 const routes = [
   {
@@ -75,9 +75,9 @@ const routes = [
     component: Toline
   },
   {
-    path: '/test',
-    name: 'Test',
-    component: Test
+    path: '/raycaster',
+    name: 'Raycaster',
+    component: Raycaster
   }
 ]
 
