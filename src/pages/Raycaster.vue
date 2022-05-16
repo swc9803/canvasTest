@@ -11,6 +11,7 @@
 <script>
 import { onMounted, ref } from 'vue'
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
@@ -29,6 +30,7 @@ export default {
         const near = 0.9
         const far = 1000
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+        camera.position.set(0, 0, 2)
 
         const renderer = new THREE.WebGLRenderer({
           antialias: true,
@@ -46,10 +48,15 @@ export default {
           function render () {
             renderer.render(scene, camera)
           }
+          const controls = new OrbitControls(camera, renderer.domElement)
+          controls.update()
 
           const light = new THREE.DirectionalLight(color, intensity)
+          const light2 = new THREE.DirectionalLight(color, intensity)
           light.position.set(-1, 2, 4)
           scene.add(light)
+          light2.position.set(1, -2, -4)
+          scene.add(light2)
 
           const raycaster = new THREE.Raycaster()
           const rayOrigin = new THREE.Vector3(-3, 0, 0)
@@ -64,8 +71,8 @@ export default {
           var box2 = new THREE.Mesh(geometry, material)
           material.color = new THREE.Color(0xff0000)
           // box.scale.set(1.0, 1.0, 1.0)
-          box.position.set(2.0, 0.0, 0.0)
-          box2.position.set(-2.0, 0.0, 0.0)
+          box.position.set(0, 0, 0)
+          box2.position.set(0, 0, 0)
           scene.add(box)
           scene.add(box2)
           animate()
@@ -78,15 +85,19 @@ export default {
             }
           })
           carAni
-            .fromTo(cont.value, { opacity: 0.5 }, { opacity: 1 }, '<')
-            .to(box.rotation, { y: 6.79 }, '<')
-            .to(box.rotation, { x: 2.6 })
-            .to(box.rotation, { z: 2.6 }, '<')
-            .to(box.rotation, { z: 0.02, y: 3.1 })
-          // .to(camera.position, { x: 0.16 }, '<')
-            .to(cont.value, { opacity: 0, scale: 0 }, '<')
+            // .fromTo(cont.value, { opacity: 0.5 }, { opacity: 1 }, '<')
+            // .to(box.rotation, { y: 6.79 }, '<')
+            // .to(box.rotation, { x: 2.6 })
+            // .to(box.rotation, { z: 2.6 }, '<')
+            .to(box2.position, { y: 2 })
+            // .to(camera.rotation, { y: 2 }, '<')
+            // .to(cont.value, { opacity: 0, scale: 0 }, '<')
           const intersect = raycaster.intersectObjects([box, box2])
-          console.log(intersect)
+          const log = () => {
+            console.log(intersect)
+          }
+          window.addEventListener('click', log)
+          gsap.to(light.rotation, { y: 20 })
         }
 
         function animate () {
@@ -102,8 +113,7 @@ export default {
         }
         window.addEventListener('resize', onWindowResize)
 
-        scene.rotation.set(0, 1.88, 0)
-        camera.position.set(0, 0, 5)
+        // scene.rotation.set(0, 1.88, 0)
 
         // ScrollTrigger.defaults({
         //   immediateRender: false
