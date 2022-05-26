@@ -69,23 +69,13 @@ export default {
       // animation
       const geometry = new THREE.BoxGeometry(0.4, 0.2)
       var material = new THREE.MeshPhongMaterial()
-      var box = new THREE.Mesh(geometry, material)
+      var box1 = new THREE.Mesh(geometry, material)
       var box2 = new THREE.Mesh(geometry, material)
       material.color = new THREE.Color(0xff0000)
       box2.position.set(0, 0, 0)
-      scene.add(box)
+      scene.add(box1)
       scene.add(box2)
-      const carAni = gsap.timeline({
-        scrollTrigger: {
-          trigger: scrollEl.value,
-          start: 'top top',
-          end: '80%',
-          scrub: 1
-        }
-      })
-      carAni
-        .to(box2.position, { y: 2 })
-      const intersect = raycaster.intersectObjects([box, box2])
+      const intersect = raycaster.intersectObjects([box1, box2])
       const log = () => {
         console.log(intersect)
       }

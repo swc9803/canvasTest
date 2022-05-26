@@ -12,6 +12,7 @@ import Gltfske from '@/pages/GltfWithSketchfab.vue'
 import Orbit from '@/pages/Orbit.vue'
 import Toline from '@/pages/Toline.vue'
 import Raycaster from '@/pages/Raycaster.vue'
+import Font from '@/pages/Font.vue'
 
 const routes = [
   {
@@ -78,6 +79,11 @@ const routes = [
     path: '/raycaster',
     name: 'Raycaster',
     component: Raycaster
+  },
+  {
+    path: '/font',
+    name: 'Font',
+    component: Font
   }
 ]
 
