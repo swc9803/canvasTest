@@ -13,6 +13,7 @@ import Orbit from '@/pages/Orbit.vue'
 import Toline from '@/pages/Toline.vue'
 import Raycaster from '@/pages/Raycaster.vue'
 import Font from '@/pages/Font.vue'
+import Glass from '@/pages/Glass.vue'
 
 const routes = [
   {
@@ -84,6 +85,11 @@ const routes = [
     path: '/font',
     name: 'Font',
     component: Font
+  },
+  {
+    path: '/glass',
+    name: 'Glass',
+    component: Glass
   }
 ]
 
