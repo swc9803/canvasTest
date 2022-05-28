@@ -14,6 +14,7 @@ import Toline from '@/pages/Toline.vue'
 import Raycaster from '@/pages/Raycaster.vue'
 import Font from '@/pages/Font.vue'
 import Glass from '@/pages/Glass.vue'
+import Dynamic from '@/pages/Dynamicmap.vue'
 
 const routes = [
   {
@@ -90,6 +91,11 @@ const routes = [
     path: '/glass',
     name: 'Glass',
     component: Glass
+  },
+  {
+    path: '/dynamic',
+    name: 'Dynamic',
+    component: Dynamic
   }
 ]
 

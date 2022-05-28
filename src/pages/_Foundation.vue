@@ -13,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger)
 export default {
   setup () {
     const container = ref()
-    const scrollEl = ref()
     const color = 0xFFFFFF
     const intensity = 1
     const fov = 35
@@ -67,7 +66,7 @@ export default {
     })
 
     return {
-      scrollEl, container
+      container
     }
   }
 }
@@ -76,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 9;
 }
 </style>
