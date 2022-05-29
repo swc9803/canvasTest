@@ -15,6 +15,7 @@ import Raycaster from '@/pages/Raycaster.vue'
 import Font from '@/pages/Font.vue'
 import Glass from '@/pages/Glass.vue'
 import Dynamic from '@/pages/Dynamicmap.vue'
+import Picking from '@/pages/Picking.vue'
 
 const routes = [
   {
@@ -96,6 +97,11 @@ const routes = [
     path: '/dynamic',
     name: 'Dynamic',
     component: Dynamic
+  },
+  {
+    path: '/picking',
+    name: 'Picking',
+    component: Picking
   }
 ]
 
