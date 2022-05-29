@@ -46,7 +46,4 @@ export default {
 .box2 {
   background: blue;
 }
-.box3 {
-  // background: green;
-}
 </style>

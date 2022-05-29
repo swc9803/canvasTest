@@ -16,6 +16,7 @@ import Font from '@/pages/Font.vue'
 import Glass from '@/pages/Glass.vue'
 import Dynamic from '@/pages/Dynamicmap.vue'
 import Picking from '@/pages/Picking.vue'
+import Zoom from '@/pages/Zoom.vue'
 
 const routes = [
   {
@@ -102,6 +103,11 @@ const routes = [
     path: '/picking',
     name: 'Picking',
     component: Picking
+  },
+  {
+    path: '/zoom',
+    name: 'Zoom',
+    component: Zoom
   }
 ]
 
